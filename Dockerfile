@@ -13,14 +13,15 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
+ENV APACHE_DOCUMENT_ROOT /usr/src/myapp/plain/public
 # ENV APACHE_DOCUMENT_ROOT /usr/src/myapp/cakephp/webroot
 # ENV APACHE_DOCUMENT_ROOT /usr/src/myapp/laravel/public
 # ENV APACHE_DOCUMENT_ROOT /usr/src/myapp/slim/public
 # ENV APACHE_DOCUMENT_ROOT /usr/src/myapp/symfony/public
 
-# RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
-#     sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf && \
-#     a2enmod rewrite
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
+    sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf && \
+    a2enmod rewrite
 
 WORKDIR /usr/src/myapp
 
