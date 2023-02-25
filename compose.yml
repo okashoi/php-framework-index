@@ -1,6 +1,6 @@
 services:
   php:
-    build: ./
+    build: ./workspace
     depends_on:
       - database
     volumes:
