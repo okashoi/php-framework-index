@@ -1,7 +1,25 @@
 services:
   php:
     build: ./
+    depends_on:
+      - database
     volumes:
       - ./workspace:/usr/src/myapp
     ports:
       - 80:80
+
+  database:
+    build: ./database
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: myapp
+      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: myapp
+    ports:
+      - 3306:3306
+    volumes:
+      - database:/var/lib/mysql
+      - ./database/conf.d:/etc/mysql/conf.d
+
+volumes:
+  database:
