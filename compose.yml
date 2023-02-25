@@ -1,10 +1,10 @@
 services:
   php:
-    build: ./workspace
+    build: ./php
     depends_on:
       - database
     volumes:
-      - ./workspace:/usr/src/myapp
+      - ./php:/usr/src/myapp
     ports:
       - 80:80
 
